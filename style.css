@@ -1,0 +1,17 @@
+.color-container {
+    background-color: #ffffff; 
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.color-info {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.color-actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
