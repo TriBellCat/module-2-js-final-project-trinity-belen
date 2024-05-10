@@ -2,7 +2,8 @@ let hexLetters = '0123456789ABCDEF';
 let hexTag = '#';
 let color = '';
 let randomizedColorAmount = 1;
-
+let currentMode = 'Add';
+let colorTheory = false;
 class ColorContainer {
     constructor(color) {
         this.color = color;
@@ -34,11 +35,13 @@ class ColorContainer {
     //More specifically, convert hexdecimal to decimal
     convertHexToRGB(hex) {
         let r = 0, g = 0, b = 0;
-	
+        
+        //Get the hexdecimals
         r = "0x" + hex[1] + hex[2];
         g = "0x" + hex[3] + hex[4];
         b = "0x" + hex[5] + hex[6];
         
+        //Converts the r, g, b hexdecimals values to numbers through unary plus operators before returning them
         return "rgb("+ +r + "," + +g + "," + +b + ")";
     }
 
@@ -95,6 +98,26 @@ class ColorContainer {
     }
 }
 
+/*
+    Functions for inputing color
+*/
+
+//Function to add in a color
+function addColor() {
+    let inputField = document.querySelector('.form-control');
+    let color = inputField.value;
+    
+    if (color.startsWith('#') && color.length === 7) {
+        let colorContainer = new ColorContainer(color);
+        colorContainer.createContainer();
+        inputField.value = '';
+    } 
+    
+    else {
+        alert('Please enter a valid hexcode');
+    }
+}
+
 /* 
     Functions for the randomizer
 */
@@ -128,13 +151,76 @@ function clearAllColors() {
     document.querySelector('.color-lists').innerHTML = ''; 
 }
 
+//Function to change parts of the UI whenever the user selects from the Color Generation Method dropdown menu
+function setColorMode(mode) {
+    let addButton = document.getElementById('add-button');
+    let generateButton = document.getElementById('generate-button');
+    let formControl = document.querySelector('.form-control');
+    let dropdownAmount = document.querySelector('.dropdown-amount');
+
+    switch(mode) {
+        case 'Add':
+            addButton.style.display = 'block';
+            generateButton.style.display = 'none';
+            formControl.disabled = false;
+            dropdownAmount.disabled = true;
+            formControl.placeholder = 'Input Hexcode (Type in # at start)';
+            colorTheory = false;
+            break;
+
+        case 'Random':
+            addButton.style.display = 'none';
+            generateButton.style.display = 'block';
+            formControl.disabled = true;
+            dropdownAmount.disabled = false;
+            formControl.placeholder = `Amount of colors generated: ${randomizedColorAmount}`;
+            colorTheory = false;
+            break;
+
+        case 'Complementary':
+        case 'Analogous':
+        case 'Triadic':
+        case 'Tetradic':
+            addButton.style.display = 'none';
+            generateButton.style.display = 'block';
+            formControl.disabled = false;
+            dropdownAmount.disabled = true;
+            formControl.placeholder = 'Input Hexcode (Type in # at start)';
+            colorTheory = true;
+            break;
+        default:
+            console.log('Default case');
+    }
+}
 
 /* 
-    Functions when an UI element is clicked on 
+    Methods whenever an UI element is clicked on 
 */
-document.getElementById('generate-button').addEventListener('click', function () {
+document.getElementById('current-color-mode').addEventListener('click', function (event) {
+    //Resets entire color palette if user selects a mode
     clearAllColors();
-    generateRandom();
+
+    if (event.target.matches('.color-mode')) {
+        let currentMode = event.target.getAttribute('data-bs-value');
+        setColorMode(currentMode);
+    }
+});
+
+document.getElementById('add-button').addEventListener('click', function () {
+    addColor();
+});
+
+document.getElementById('generate-button').addEventListener('click', function () {
+    //Generates randomized colors; does not reset entire palette every generation
+    if (!colorTheory) {
+        generateRandom();
+    }
+    
+    //Generates colors based off of user input and based off a color theory; resets entire palette every generation
+    else {
+        clearAllColors();
+        alert('Color Theory selected!');
+    }
 });
 
 document.getElementById('clear-all-button').addEventListener('click', function () {
@@ -142,9 +228,13 @@ document.getElementById('clear-all-button').addEventListener('click', function (
 });
 
 document.getElementById('color-amount').addEventListener('click', function (event) {
+    let formControl = document.querySelector('.form-control');
+
     if (event.target.matches('.dropdown-item')) {
         randomizedColorAmount = event.target.getAttribute('data-bs-value');
     }
+
+    formControl.placeholder = `Amount of colors generated: ${randomizedColorAmount}`;
 });
 
 document.getElementById('theme-button').addEventListener('click', function() {
@@ -161,6 +251,11 @@ document.getElementById('theme-button').addEventListener('click', function() {
         themeButton.className = 'btn btn-warning';
     }
 });
+
+
+// Set the default mode, currently 'Add', on page load
+setColorMode(currentMode);
+
 
 //Functions to test some things
 /*function testColor() {

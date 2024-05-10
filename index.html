@@ -20,29 +20,30 @@
 <body>
     <div class="container-fluid p-0 m-0 mt-5">
         <!-- Row of Buttons and Other Functionalities-->
-        <div class="row p-0 m-0">
+        <div class="row p-0 m-0" id="functionality-container">
             <!-- Input Bar For User Input-->
-            <div class="col">
+            <div class="col-md-2">
                 <input type="text" class="form-control" placeholder="Input Hexcode" />
             </div>
 
             <!-- Dropdown Menu for color generation options -->
-            <div class="col">
+            <div class="col-md-2">
                 <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Color Generation Method
                 </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Random</a>
-                    <a class="dropdown-item" href="#">Complementary</a>
-                    <a class="dropdown-item" href="#">Analogous</a>
-                    <a class="dropdown-item" href="#">Triadic</a>
-                    <a class="dropdown-item" href="#">Tetradic</a>
+                <div class="dropdown-menu" id="current-color-mode">
+                    <a class="dropdown-item color-mode" href="#" data-bs-value="Add">Add</a>
+                    <a class="dropdown-item color-mode" href="#" data-bs-value="Random">Random</a>
+                    <a class="dropdown-item color-mode" href="#" data-bs-value="Complementary">Complementary</a>
+                    <a class="dropdown-item color-mode" href="#" data-bs-value="Analogous">Analogous</a>
+                    <a class="dropdown-item color-mode" href="#" data-bs-value="Triadic">Triadic</a>
+                    <a class="dropdown-item color-mode" href="#" data-bs-value="Tetradic">Tetradic</a>
                 </div>
             </div>
 
             <!-- Dropdown Menu for the amount of colors the user wants to randomly generate-->
-            <div class="col">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="col-md-2">
+                <button class="btn btn-info dropdown-toggle dropdown-amount" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Amount of Colors Generated
                 </button>
                 <div class="dropdown-menu" id="color-amount">
@@ -54,23 +55,25 @@
                 </div>
             </div>
 
-            <!-- Button to generate colors -->
-            <div class="col">
+            <div class="col-md-2" id="button-container" style="position: relative;">
+                 <!-- Button to add colors -->
+                <button class="btn btn-primary" id="add-button">Add</button>
+                 <!-- Button to generate colors -->
                 <button class="btn btn-primary" id="generate-button">Generate</button>
             </div>
 
             <!-- Button that clears all colors -->
-            <div class="col">
+            <div class="col-md-1">
                 <button class="btn btn-danger" id="clear-all-button">Clear All</button>
             </div>
 
             <!-- Button for gradation mode -->
-            <div class="col">
+            <div class="col-md-1">
                 <button class="btn btn-info">Gradation</button>
             </div>
 
             <!-- Buttons for dark and light mode -->
-            <div class="col switch-themes">
+            <div class="col-md-2 switch-themes">
                 <button class="btn btn-warning" id="theme-button"><i class="bi bi-sun-fill"></i></button>                
             </div>
         </div>
