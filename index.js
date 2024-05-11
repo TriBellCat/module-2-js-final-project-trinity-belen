@@ -23,27 +23,42 @@ class ColorContainer {
 
         let colorActions = document.createElement('div');
         colorActions.className = 'color-actions';
-        colorActions.innerHTML = `<button class="btn btn-danger remove-button"><i class="bi bi-x-circle-fill"></i></button><button class="btn btn-success copy-button"><i class="bi bi-copy"></i></button>`;
+
+        let removeButton = document.createElement('button');
+        removeButton.className = 'btn btn-danger remove-button';
+        removeButton.innerHTML = '<i class="bi bi-x-circle-fill"></i>';
+        removeButton.addEventListener('click', () => {
+            colorContainer.remove();
+        });
+
+        let copyButton = document.createElement('button');
+        copyButton.className = 'btn btn-success copy-button';
+        copyButton.innerHTML = '<i class="bi bi-copy"></i>';
+        copyButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(this.color);
+        });
 
         colorContainer.appendChild(colorInfo);
         colorContainer.appendChild(colorActions);
 
+        colorActions.appendChild(removeButton);
+        colorActions.appendChild(copyButton);
+
         document.querySelector('.color-lists').appendChild(colorContainer);
     }
 
-    //Convert hexcode to RGB (Red, Green, Blue)
-    //More specifically, convert hexdecimal to decimal
+    //Convert hex code to RGB (Red, Green, Blue)
     convertHexToRGB(hex) {
         let r = 0, g = 0, b = 0;
         
-        //Get the hexdecimals
-        r = "0x" + hex[1] + hex[2];
-        g = "0x" + hex[3] + hex[4];
-        b = "0x" + hex[5] + hex[6];
-        
-        //Converts the r, g, b hexdecimals values to numbers through unary plus operators before returning them
-        return "rgb("+ +r + "," + +g + "," + +b + ")";
+        //Convert the hexadecimals to decimals
+        r = parseInt("0x" + hex[1] + hex[2]);
+        g = parseInt("0x" + hex[3] + hex[4]);
+        b = parseInt("0x" + hex[5] + hex[6]);
+    
+        return "rgb(" + r + "," + g + "," + b + ")";
     }
+
 
     //Convert RGB to HSL (Hue, Saturation, Lightness)
     convertRGBToHSL(r, g, b){
@@ -144,6 +159,15 @@ function generateRandom() {
     }
 }
 
+/*
+    Functions for the color theory
+*/
+
+// Generate color palette based on color theory
+function generateColorPalette() {
+   
+}
+
 /* 
     Other Functionality
 */
@@ -219,6 +243,8 @@ document.getElementById('generate-button').addEventListener('click', function ()
     //Generates colors based off of user input and based off a color theory; resets entire palette every generation
     else {
         clearAllColors();
+        //generateColorPalette();
+
         alert('Color Theory selected!');
     }
 });
