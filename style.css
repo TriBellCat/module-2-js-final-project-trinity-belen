@@ -45,6 +45,10 @@
     height : 200px;
 }
 
+#button-container {
+    position: relative;
+}
+
 body {
     background-color: white;
 }

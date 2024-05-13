@@ -11,21 +11,20 @@ function addColor() {
     let color = inputField.value;
     let colorContainer = new ColorContainer(color);
     let palContainer = new ColorContainer();
+    let hexReg = /^#[0-9A-F]{6}$/i;
 
     //console.log(currentMode);
-    if (color.startsWith("#") && color.length === 7) {
+
+    //Uses regex to check if input color is valid
+    if (hexReg.test(color)) {
         switch (currentMode) {
             case "Complementary":
-                let compColor = colorContainer.getComplementaryColor();
-                palContainer = new ColorContainer(compColor);
-                palContainer.createContainer();
-                break;
             case "Analogous":
             case "Triadic":
             case "Tetradic":
                 let palColors = colorContainer.getPalColors(currentMode);
                 palColors.forEach((color) => {
-                    let palContainer = new ColorContainer(color);
+                    palContainer = new ColorContainer(color);
                     palContainer.createContainer();
                 });
                 break;
@@ -143,6 +142,29 @@ function setColorMode(mode) {
     currentMode = mode;
 }
 
+//Save current color palette to local storage
+function saveColors() {
+    let colorContainers = document.querySelectorAll('.color-container');
+    let colors = [];
+
+    colorContainers.forEach(container => {
+        colors.push(container.style.backgroundColor);
+    });
+
+    localStorage.setItem('colorPalette', JSON.stringify(colors));
+}
+
+//Load color palette from local storage
+function loadColors() {
+    clearAllColors();
+    let colors = JSON.parse(localStorage.getItem('colorPalette'));
+
+    colors.forEach(color => {
+        let colorContainer = new ColorContainer(color);
+        colorContainer.createContainer();
+    });
+}
+
 function clearAllColors() {
     clearGradation();
     document.querySelector(".color-lists").innerHTML = "";
@@ -156,6 +178,16 @@ function clearGradation() {
     }
 }
 
+document.getElementById("add-button").addEventListener("click", addColor);
+
+document.getElementById("create-gradation-button").addEventListener("click", createGradation);
+
+document.getElementById("clear-all-button").addEventListener("click", clearAllColors);
+
+document.getElementById("save-button").addEventListener("click", saveColors);
+
+document.getElementById("load-button").addEventListener("click", loadColors);
+
 document.getElementById("current-color-mode").addEventListener("click", function (event) {
     //Resets entire color palette if user selects a mode
     clearAllColors();
@@ -165,10 +197,6 @@ document.getElementById("current-color-mode").addEventListener("click", function
         //console.log(currentMode);
         setColorMode(currentMode);
     }
-});
-
-document.getElementById("add-button").addEventListener("click", function () {
-    addColor();
 });
 
 document.getElementById("generate-button").addEventListener("click", function () {
@@ -183,14 +211,6 @@ document.getElementById("generate-button").addEventListener("click", function ()
         clearAllColors();
         addColor();
     }
-});
-
-document.getElementById("create-gradation-button").addEventListener("click", function () {
-    createGradation();
-});
-
-document.getElementById("clear-all-button").addEventListener("click", function () {
-    clearAllColors();
 });
 
 document.getElementById("color-amount").addEventListener("click", function (event) {
@@ -212,7 +232,7 @@ document.getElementById("theme-button").addEventListener("click", function () {
         themeButton.className = "btn btn-dark";
     } else {
         themeButton.innerHTML = '<i class="bi bi-sun-fill"></i>';
-        themeButton.className = "btn btn-warning";
+        themeButton.className = "btn btn-light";
     }
 });
 

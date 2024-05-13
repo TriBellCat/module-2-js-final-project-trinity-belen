@@ -6,6 +6,7 @@ export default class ColorContainer {
         this.color = color;
     }
 
+    //Color creation
     createContainer() {
         //Gets the RGB and HSL color values
         const rgbColor = convert.hex.rgb(this.color).join(', ');
@@ -67,13 +68,6 @@ export default class ColorContainer {
         document.querySelector(".color-lists").appendChild(colorContainer);
     }
 
-    //Calculates a complementary color scheme
-    getComplementaryColor() {
-        let rgb = convert.hex.rgb(this.color);
-        let compColor = convert.rgb.hex(rgb.map(val => 255 - val));
-        return `#${compColor}`;
-    }
-
     //Calculates a specific color scheme based on what's selected from the dropdown.
     getPalColors(mode) {
         let hsl = convert.hex.hsl(this.color);
@@ -81,6 +75,11 @@ export default class ColorContainer {
         let newHue = 0;
 
         switch (mode) {
+            //Generates one color by adding 180 degrees to the hue of the current color
+            case 'Complementary':
+                newHue = (hsl[0] + 180) % 360;
+                palColors.push(`#${convert.hsl.hex([newHue, hsl[1], hsl[2]])}`);
+                break;
             //Generates two colors by adding 30 degrees from the hue of the current color.
             case 'Analogous':
                 //The color the user puts in is directly in the middle of two colors that need to be generated
