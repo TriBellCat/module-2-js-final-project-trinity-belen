@@ -70,7 +70,7 @@ function createGradation() {
     const selectedColors = document.querySelectorAll('.color-container.selected');
     
     // Check if two colors are selected
-    if (selectedColors.length > 2) {
+    if (selectedColors.length === 1) {
         alert('Please select more than 1');
         return;
     }
