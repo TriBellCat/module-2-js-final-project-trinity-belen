@@ -10,7 +10,10 @@ export default class ColorContainer {
     createContainer() {
         //Gets the RGB and HSL color values
         const rgbColor = convert.hex.rgb(this.color).join(', ');
-        const hslColor = convert.hex.hsl(this.color).join(', ');
+        let hslColor = convert.hex.hsl(this.color);
+        
+        //Converts hsl to decimal
+        hslColor = [parseFloat((hslColor[0]/360).toFixed(2)), hslColor[1]/100, hslColor[2]/100].join(', ');
 
         //Creates container for a generated or added in color
         const colorContainer = document.createElement("div");
@@ -20,13 +23,13 @@ export default class ColorContainer {
         //Event listener for selecting colors for gradation
         colorContainer.addEventListener('click', () => {
             const selectedColors = document.querySelectorAll('.color-container.selected');
-
-            //if more than two colors are selected, remove the second one and replace it with the selected one
+            
+            //if more than two colors are selected, remove one and replace it with the selected one
             if (selectedColors.length === 2 && !colorContainer.classList.contains('selected')) {
-                selectedColors[1].classList.remove('selected');
+                selectedColors[0].classList.remove('selected');
             }
         
-            colorContainer.classList.add('selected');
+            colorContainer.classList.toggle('selected');
         });
 
         //Adds in div section for the RGB, HSL, and hex code values displays

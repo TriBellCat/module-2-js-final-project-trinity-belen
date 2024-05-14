@@ -19,16 +19,16 @@
 </head>
 
 <body>
-    <div class="container-fluid p-0 m-0 mt-5">
+    <div class="container-fluid p-0 m-0">
         <!-- Row of Buttons and Other Functionalities-->
-        <div class="row p-0 m-0" id="functionality-container">
+        <div class="row h-25 p-0 m-0" id="functionality-container">
             <!-- Input Bar For User Input-->
-            <div class="col-md-2">
+            <div class="col-md-2 mt-4">
                 <input type="text" class="form-control" placeholder="Input Hexcode" />
             </div>
 
             <!-- Dropdown Menu for color generation options -->
-            <div class="col-md-2">
+            <div class="col-md-2 mt-4">
                 <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Color Generation Method
                 </button>
@@ -43,7 +43,7 @@
             </div>
 
             <!-- Dropdown Menu for the amount of colors the user wants to randomly generate-->
-            <div class="col-md-2">
+            <div class="col-md-2 mt-4">
                 <button class="btn btn-info dropdown-toggle dropdown-amount" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Amount of Colors Generated
                 </button>
@@ -56,7 +56,7 @@
                 </div>
             </div>
 
-            <div class="col-md-1" id="button-container">
+            <div class="col-md-1 mt-4" id="button-container">
                  <!-- Button to add colors -->
                 <button class="btn btn-primary" id="add-button">Add</button>
                  <!-- Button to generate colors -->
@@ -64,25 +64,25 @@
             </div>
 
             <!-- Button that clears all colors -->
-            <div class="col-md-1">
+            <div class="col-md-1 mt-4">
                 <button class="btn btn-danger" id="clear-all-button">Clear All</button>
             </div>
 
             <!-- Button for gradation mode -->
-            <div class="col-md-1">
+            <div class="col-md-1 mt-4">
                 <button class="btn btn-info" id="create-gradation-button">Gradation</button>
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-1 mt-4">
                 <button class="btn btn-secondary" id="save-button">Save</button>
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-1 mt-4">
                 <button class="btn btn-secondary" id="load-button">Load</button>
             </div>
 
             <!-- Buttons for dark and light mode -->
-            <div class="col-md-1 switch-themes">
+            <div class="col-md-1 mt-4 switch-themes">
                 <button class="btn btn-warning" id="theme-button"><i class="bi bi-sun-fill"></i></button>                
             </div>
         </div>

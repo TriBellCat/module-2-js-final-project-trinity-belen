@@ -11,7 +11,7 @@ function addColor() {
     let color = inputField.value;
     let colorContainer = new ColorContainer(color);
     let palContainer = new ColorContainer();
-    let hexReg = /^#[0-9A-F]{6}$/i;
+    const hexReg = /^#[0-9A-F]{6}$/i;
 
     //console.log(currentMode);
 
@@ -226,13 +226,18 @@ document.getElementById("color-amount").addEventListener("click", function (even
 document.getElementById("theme-button").addEventListener("click", function () {
     document.body.classList.toggle("dark-mode");
     var themeButton = document.getElementById("theme-button");
+    var funcBar = document.getElementById("functionality-container");
 
     if (document.body.classList.contains("dark-mode")) {
         themeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
         themeButton.className = "btn btn-dark";
+        funcBar.style.backgroundColor ="#1F5181";
+        funcBar.style.setProperty("--shadow-color", "hsl(0, 100%, 100%)");
     } else {
         themeButton.innerHTML = '<i class="bi bi-sun-fill"></i>';
-        themeButton.className = "btn btn-light";
+        themeButton.className = "btn btn-warning";
+        funcBar.style.backgroundColor ="#C8C8C8";
+        funcBar.style.setProperty("--shadow-color", " hsl(220deg 60% 50%)");
     }
 });
 

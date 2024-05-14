@@ -49,6 +49,21 @@
     position: relative;
 }
 
+#functionality-container {
+    position: relative;
+    z-index: 2000;
+    background-color: #C8C8C8	;
+    height: 80px !important;
+    --shadow-color: hsl(220deg 60% 50%);
+    filter: drop-shadow(
+      1px 2px 8px var(--shadow-color)
+    );
+}
+
+.dropdown-menu {
+    z-index: 1000 !important;
+}
+
 body {
     background-color: white;
 }
@@ -56,6 +71,7 @@ body {
 body.dark-mode {
     background-color: #102a43;
 }
+
 
 
 
