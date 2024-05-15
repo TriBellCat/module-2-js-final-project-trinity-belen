@@ -193,7 +193,7 @@ document.getElementById("current-color-mode").addEventListener("click", function
     clearAllColors();
 
     if (event.target.matches(".color-mode")) {
-        let currentMode = event.target.getAttribute("data-bs-value");
+        currentMode = event.target.getAttribute("data-bs-value");
         //console.log(currentMode);
         setColorMode(currentMode);
     }
