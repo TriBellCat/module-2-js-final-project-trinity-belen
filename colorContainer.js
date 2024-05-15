@@ -8,6 +8,9 @@ export default class ColorContainer {
 
     //Color creation
     createContainer() {
+        const hexP = document.createElement("p");
+        hexP.textContent = `Hexcode: ${this.color}`;
+
         //Gets the RGB and HSL color values
         const rgbColor = convert.hex.rgb(this.color).join(', ');
         let hslColor = convert.hex.hsl(this.color);
@@ -40,9 +43,7 @@ export default class ColorContainer {
         rgbP.textContent = `RGB: ${rgbColor}`;
         const hslP = document.createElement("p");
         hslP.textContent = `HSL: ${hslColor}`;
-        const hexP = document.createElement("p");
-        hexP.textContent = `Hexcode: ${this.color}`;
-
+     
         colorInfo.append(rgbP, hslP, hexP);
 
         //Adds in div section for the remove buttons and copy buttons that will be added to it
