@@ -77,6 +77,18 @@ export default class ColorContainer {
         return "rgb(" + r + "," + g + "," + b + ")";
     }
 
+    //Converts RGB to Hex
+    convertRGBToHex(rgb) {
+        let [r, g, b] = rgb.substring(4, rgb.length - 1).split(',').map(num => +num);
+
+        r = r.toString(16).padStart(2, '0');
+        g = g.toString(16).padStart(2, '0');
+        b = b.toString(16).padStart(2, '0');
+
+        return '#' + r + g + b;
+    }
+
+    //Converts RGB to HSL
     convertRGBToHSL(r, g, b) {
         //Normalize the RGB Values
         r /= 255;

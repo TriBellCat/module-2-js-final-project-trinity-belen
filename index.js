@@ -33,7 +33,7 @@ function addColor() {
         colorContainer = new ColorContainer(color);
         colorContainer.createContainer();
         inputField.value = "";
-    } 
+    }
     else {
         alert("Please enter a valid hexcode");
     }
@@ -68,7 +68,7 @@ function createGradation() {
 
     // Get the selected colors
     const selectedColors = document.querySelectorAll('.color-container.selected');
-    
+
     // Check if two colors are selected
     if (selectedColors.length === 1) {
         alert('Please select more than 1');
@@ -148,7 +148,8 @@ function saveColors() {
     let colors = [];
 
     colorContainers.forEach(container => {
-        colors.push(container.style.backgroundColor);
+        let rgbColor = container.querySelector('.color-info p').textContent.split(': ')[1];
+        colors.push(rgbColor);
     });
 
     localStorage.setItem('colorPalette', JSON.stringify(colors));
@@ -160,7 +161,11 @@ function loadColors() {
     let colors = JSON.parse(localStorage.getItem('colorPalette'));
 
     colors.forEach(color => {
-        let colorContainer = new ColorContainer(color);
+        //temporary container just to get the hexcode 
+        let tempContainer = new ColorContainer();
+        let hexColor = tempContainer.convertRGBToHex(color);
+
+        let colorContainer = new ColorContainer(hexColor);
         colorContainer.createContainer();
     });
 }
@@ -231,12 +236,12 @@ document.getElementById("theme-button").addEventListener("click", function () {
     if (document.body.classList.contains("dark-mode")) {
         themeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
         themeButton.className = "btn btn-dark";
-        funcBar.style.backgroundColor ="#1F5181";
+        funcBar.style.backgroundColor = "#1F5181";
         funcBar.style.setProperty("--shadow-color", "hsl(0, 100%, 100%)");
     } else {
         themeButton.innerHTML = '<i class="bi bi-sun-fill"></i>';
         themeButton.className = "btn btn-warning";
-        funcBar.style.backgroundColor ="#C8C8C8";
+        funcBar.style.backgroundColor = "#C8C8C8";
         funcBar.style.setProperty("--shadow-color", " hsl(220deg 60% 50%)");
     }
 });
